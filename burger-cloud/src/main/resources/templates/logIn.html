@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 		xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Burger Cloud</title>
+	<link href="url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');">
+	<link th:href="@{/styles/homeStyle.css}" rel="stylesheet" >
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	li a:hover {
+			color: white;
+		}
+		input[type=text]:hover {
+			  width: 30%;
+			  background-color: #3FC38C;
+			  border-color: #3FC38C;
+		}
+		input[type=text]:focus {
+			  width: 30%;
+			  background-color: #3FC38C;
+			  border-color: #3FC38C;
+		}
+		.inputs {
+			  text-align: center;
+		}	
+	</style>
+</head>
+<body>
+	<header>
+
+		<div>
+			<nav>
+			 <ul>
+			  <li><a href="/">Home</a></li>
+			  <li><a href="/login">Log in</a></li>
+			  <li><a href="#">About</a></li>
+			 </ul>
+			</nav>
+		</div>
+	</header>
+	<br/><br/><br/><br/><br/><br/>
+	<img class="center" th:src="@{/images/BurgerCloudLogo.png}"/>
+	<br><br><br><br>
+	<form method="POST" th:action="@{/logIn}" th:object="${user}">
+		<div class="inputs">
+	 		<input type="text" th:field="*{userName}" name="name" placeholder="Name..."/>
+	 	</div>
+	 	<br/>
+	 	<br/>
+	 	<div class="inputs">
+			<input type="text" th:field="*{userPassword}" name="password" placeholder="Password..."/>
+		</div>
+		<br/>
+	</form>
+</body>
+</html>

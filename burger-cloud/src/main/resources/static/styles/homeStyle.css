@@ -1,0 +1,91 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Allerta Stencil');
+*{
+	font-family: 'Courier', sans-serif;
+}
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+body {
+	background: #F8E2C1;
+	font-family: mosntserrat;
+	margin: 0;
+    padding: 0;
+}
+header {
+	background: #3FC38C;
+	width: 100%;
+	height: 50px;
+	min-width: 100%;
+}
+
+header::after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+nav {
+	background: #3FC38C;
+	width: 100%;
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	margin-left: 10px;
+}
+
+nav li {
+	display: inline-block;
+	margin-right: 50px;
+	padding-top: 15px;
+}
+
+nav a {
+	color: black;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 21px;
+}
+
+button {
+	background: #F8E2C1;
+	border-radius: 20px;
+	position: absolute;
+    width: 500px;
+    height: 50px;
+    border-color: #3FC38C;
+    transition-duration: 0.4s;
+    font-size: 20px;    
+}
+.wrapper{
+	text-align: center;
+	padding-right: 500px;
+	padding-bottom: 50px;
+}
+
+input[type=text] {
+  width: 17%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  border-color: #3FC38C;
+  font-size: 16px;
+  background: #F8E2C1;
+  background-position: 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  transition: width 0.6s;
+}
+::-webkit-input-placeholder
+{
+    color: black;
+}
+
+
+
+
