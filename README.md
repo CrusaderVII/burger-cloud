@@ -1,2 +1,2 @@
 # burger-cloud
-For now I`m just working on it so this project isn`t ready yet;)
+For now Im just working on it so this project is not ready yet;)
