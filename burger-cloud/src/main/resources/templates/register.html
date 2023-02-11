@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 		xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Burger Cloud</title>
+	<link href="url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');">
+	<link th:href="@{/styles/homeStyle.css}" rel="stylesheet" >
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		li a:hover {
+			color: white;
+		}
+		a:hover {
+			color: #3FC38C;
+		}
+		
+		input:hover {
+			  width: 30%;
+			  border-color: #3FC38C;
+		}
+		input:focus {
+			  width: 30%;
+			  border-color: #3FC38C;
+		}
+		span.has-error{
+			background-color: #FF4F4D;
+		}
+		.inputs {
+			  text-align: center;
+		}	
+	</style>
+</head>
+<body>
+	<header>
+
+		<div>
+			<nav>
+			 <ul>
+			  <li><a href="/">Home</a></li>
+			  <li><a href="/login">Log in</a></li>
+			  <li><a href="#">About</a></li>
+			 </ul>
+			</nav>
+		</div>
+	</header>
+	<br/><br/><br/><br/>
+	<img class="center" th:src="@{/images/BurgerCloudLogo.png}"/>
+	<br><br>
+	<form method="POST" th:action="@{/register}" th:object="${user}">
+		<div class="inputs">
+	 		<input type="text" th:field="*{userName}" name="name" placeholder="Type your name..."/>
+	 		<span class="validationError"
+			th:if="${#fields.hasErrors('userName')}"
+			th:errors="*{userName}"></span>
+	 	</div>
+	 	<br/>
+	 	<br/>
+	 	<br/>
+	 	<div class="inputs">
+	 		<input type="text" th:field="*{userMail}" name="mail" placeholder="Enter your email..."/>
+	 		<span class="validationError"
+			th:if="${#fields.hasErrors('userMail')}"
+			th:errors="*{userMail}"></span>
+	 	</div>
+	 	<br/>
+	 	<br/>
+	 	<br/>
+	 	<div class="inputs">
+			<input type="text" th:field="*{userPassword}" name="password" placeholder="Create password..."/>
+			<span class="validationError"
+			th:if="${#fields.hasErrors('userPassword')}"
+			th:errors="*{userPassword}"></span>
+		</div>
+		<br/>
+		<div class="inputs">
+			<input type="text" th:field="*{userPasswordConfirm}" name="passwordConfirm" placeholder="Confirm password..."/>
+			<span class="validationError"
+			th:if="${#fields.hasErrors('global')}"
+			th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<div class="inputs">
+			<input type="submit" value="Submit">
+		</div>
+	</form>
+</body>
+</html>

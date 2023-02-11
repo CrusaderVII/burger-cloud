@@ -8,15 +8,19 @@
 	<link th:href="@{/styles/homeStyle.css}" rel="stylesheet" >
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
-	li a:hover {
+		li a:hover {
 			color: white;
 		}
-		input[type=text]:hover {
+		a:hover {
+			color: #3FC38C;
+		}
+		
+		input:hover {
 			  width: 30%;
 			  background-color: #3FC38C;
 			  border-color: #3FC38C;
 		}
-		input[type=text]:focus {
+		input:focus {
 			  width: 30%;
 			  background-color: #3FC38C;
 			  border-color: #3FC38C;
@@ -42,7 +46,7 @@
 	<br/><br/><br/><br/><br/><br/>
 	<img class="center" th:src="@{/images/BurgerCloudLogo.png}"/>
 	<br><br><br><br>
-	<form method="POST" th:action="@{/logIn}" th:object="${user}">
+	<form method="POST" th:action="@{/login}" th:object="${user}">
 		<div class="inputs">
 	 		<input type="text" th:field="*{userName}" name="name" placeholder="Name..."/>
 	 	</div>
@@ -52,6 +56,14 @@
 			<input type="text" th:field="*{userPassword}" name="password" placeholder="Password..."/>
 		</div>
 		<br/>
+		<br/>
+		<div class="inputs">
+			<input type="submit" value="I`m back!">
+		</div>	
+		<br/>
+		<div class="wrapper-for-a">
+			<a th:href="@{/register}" id="another">Register</a>
+		</div>	
 	</form>
 </body>
 </html>
