@@ -1,5 +1,7 @@
 package burgers.web;
 
+import org.apache.catalina.core.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import burgers.User;
-import jakarta.servlet.http.HttpServletRequest;
+import burgers.data.UserRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SessionAttributes("user")
 public class RegisterController {
+	
+	@Autowired
+	UserRepository repo;
 	
 	@GetMapping
 	public String register(Model model) {
@@ -33,6 +38,7 @@ public class RegisterController {
 			 return "register";
 		}
 		
+		repo.save(user);
 		log.info("New user created: " + user);
 		return "redirect:/lobby";
 	 }
