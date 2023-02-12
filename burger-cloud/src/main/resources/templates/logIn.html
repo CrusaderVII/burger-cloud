@@ -47,19 +47,28 @@
 	<br/><br/><br/><br/><br/><br/>
 	<img class="center" th:src="@{/images/BurgerCloudLogo.png}"/>
 	<br><br><br><br>
-	<form method="POST" th:action="@{/login}" th:object="${user}">
+	<form method="POST" th:action="@{/login}" th:object="${userLogin}">
 		<div class="inputs">
-	 		<input type="text" th:field="*{userName}" name="name" placeholder="Name..."/>
+	 		<input type="text" th:field="*{userLoginName}" name="name" placeholder="Name..."/>
+	 		<span class="validationError"
+			th:if="${#fields.hasErrors('userLoginName')}"
+			th:errors="*{userLoginName}"></span>
 	 	</div>
 	 	<br/>
 	 	<br/>
 	 	<div class="inputs">
-			<input type="text" th:field="*{userPassword}" name="password" placeholder="Password..."/>
+			<input type="password" th:field="*{userLoginPassword}" name="password" placeholder="Password..."/>
+			<span class="validationError"
+			th:if="${#fields.hasErrors('userLoginPassword')}"
+			th:errors="*{userLoginPassword}"></span>
 		</div>
 		<br/>
 		<br/>
 		<div class="inputs">
 			<input type="submit" value="I`m back!">
+			<span class="validationError"
+			th:if="${#fields.hasErrors('global')}"
+			th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
 		</div>	
 		<br/>
 		<div class="wrapper-for-a">
