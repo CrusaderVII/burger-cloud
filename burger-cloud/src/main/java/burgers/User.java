@@ -1,5 +1,6 @@
 package burgers;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "users")
 @ToString
-public class User {
+public class User{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +48,14 @@ public class User {
 	@Transient
 	private String userPasswordConfirm;
 		
-	@Column(name = "emailIsVerified", nullable = false)
-	private boolean emailIsVerified = false;
+	private boolean emailIsVerified;
+	
+	@Column (name = "verificationCode", length = 64)
+	private String verificationCode;
+
+	
+
+	
 	
 //	public void addOrderToHistory(Order order) {
 //		this.ordersHistory.add(order);

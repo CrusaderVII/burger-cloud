@@ -1,5 +1,7 @@
 package burgers.web;
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import burgers.User;
 import burgers.data.UserRepository;
 import burgers.security.UserLogin;
+import burgers.sevice.UserServices;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,8 +30,11 @@ public class LogInController {
 	@Autowired
 	private UserRepository repo; 
 	
+	@Autowired
+	private UserServices serv;
+	
 	@GetMapping
-	 public String orderForm(Model model) {
+	 public String orderForm(Model model) throws UnsupportedEncodingException, MessagingException {
 		model.addAttribute("userLogin", new UserLogin());
 		return "logIn";
 	 }

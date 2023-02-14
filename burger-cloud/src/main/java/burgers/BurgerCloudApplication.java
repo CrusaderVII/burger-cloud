@@ -9,5 +9,6 @@ public class BurgerCloudApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BurgerCloudApplication.class, args);
 	}
+	
 
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 		xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Burger Cloud</title>
+	<link href="url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');">
+	<link th:href="@{/styles/homeStyle.css}" rel="stylesheet" >
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		li a:hover {
+			color: white;
+			transition-duration: 0.4s;
+		}
+	</style>
+</head>
+<body>
+	<header>
+
+		<div>
+			<nav>
+			 <ul>
+			  <li><a href="/">Home</a></li>
+			  <li><a href="/login">Log in</a></li>
+			  <li><a href="#">About</a></li>
+			 </ul>
+			</nav>
+		</div>
+	</header>
+	<br/><br/><br/><br/>
+	<img class="center" th:src="@{/images/BurgerCloudLogo.png}"/>
+	<br><br>
+	
+	<div class="for-span">
+		<span>Welcome to our Burger-Cloud family!</span>
+	</div>
+	<div class="for-span">
+		<span>We send you a letter to verify your email. </span>
+	</div>
+	<div class="for-span">
+		<span>Please, to end your registration open link in this letter</span>
+	</div>
+		
+	
+</body>
+</html>
