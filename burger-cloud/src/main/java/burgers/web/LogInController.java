@@ -44,9 +44,6 @@ public class LogInController {
 		if (errors.hasErrors()) {
 			return "logIn";
 		}
-		
-		
-		
 		return "redirect:/lobby";
 	 }
 }

@@ -20,6 +20,8 @@ public interface UserRepository extends
 	
 	public User getUserByUserName(String name);
 	
+	public User getUserById(Long id);
+	
 	
 	
 }

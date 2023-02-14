@@ -7,16 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import burgers.User;
+import burgers.data.BurgerRepository;
 import burgers.sevice.UserServices;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import jakarta.mail.MessagingException;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class HomeController {
-
-	@Autowired
-	private UserServices serv;
 	
 	@GetMapping("/")
 	public String home() throws MessagingException, MalformedTemplateNameException, 

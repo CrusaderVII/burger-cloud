@@ -53,11 +53,4 @@ public class User{
 	@Column (name = "verificationCode", length = 64)
 	private String verificationCode;
 
-	
-
-	
-	
-//	public void addOrderToHistory(Order order) {
-//		this.ordersHistory.add(order);
-//	}
 }

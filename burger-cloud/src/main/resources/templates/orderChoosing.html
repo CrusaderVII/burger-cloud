@@ -34,13 +34,15 @@
 	<br/><br/><br/><br/><br/><br/>
 	<img class="center" th:src="@{/images/BurgerCloudLogo.png}"/>
 	<br>
-	<form>
-		<div class="wrapper">
-			<button type="submit" formaction="/order">ORDER BURGERS!</button>
-		</div>
-		<br/>
-		<div class="wrapper">
-			<button type="submit" formaction="/login">LOG IN / REGISTER</button>
+	<form method="POST" th:action="@{/order}" th:object="${order}">
+	<h3>Choose your burger:</h3><br/>
+		<div class="wrapper" th:each="burger : ${avaliableBurgers}">
+		 	<div class="wrapper">
+				<span th:text="${burger.name}">INGREDIENT</span><br/>
+	 		</div>
+	 	</div>
+	 	<div class="wrapper">
+			<button type="submit">ORDER NOW!</button>
 		</div>
 	</form>
 	

@@ -62,7 +62,8 @@ public class UserServices {
         helper.setText(writer.getBuffer().toString(), true);
         mailSender.send(mimeMessage);
         
-        user.setEmailIsVerified(true);
+        user.setVerificationCode(randomString());
+        user.setEmailIsVerified(false);
     }
     
     public static String randomString() {
