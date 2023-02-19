@@ -1,4 +1,4 @@
-package burgers.web;
+package burgers.web.order;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +23,7 @@ import burgers.data.OrderRepository;
 import burgers.data.ReferenceRepository;
 import burgers.data.UserRepository;
 import burgers.security.UserLogin;
+import jakarta.servlet.http.Cookie;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,22 +47,36 @@ public class OrderController {
 	ReferenceRepository rRepo;
 	
 	@GetMapping
-	public String home(Model model) {
-		model.addAttribute("order", new Order());
-		model.addAttribute("avaliableBurgers", bRepo.findAll());
-		
-		return "orderChoosing";
+	public String order(@ModelAttribute("order") Order order) {
+		return "order/orderChoosing.html";
 	}
 	
-	@PostMapping
-	 public String userLogging(@ModelAttribute("order") Order order, 
-			 @ModelAttribute("avaliableBurgers") Iterable<Burger> burgers) {
+	@GetMapping("/cart")	
+	public String orderCurrent(@ModelAttribute("order") Order order, Model model) {
+		List<Burger> orderedBurgers = new ArrayList<>();
+		order.getCart().stream()
+			.forEach(i -> orderedBurgers.add(bRepo.getBurgerByCodeName(i)));
+		
+		model.addAttribute("orderedBurgers", orderedBurgers);
+		
+		return "order/orderCart.html";
+	}
+	
+	@ModelAttribute
+	public void addIngredientsToModel(Model model) {
+		Iterable<Burger> burgers = bRepo.findAll();
+		model.addAttribute("burgers", burgers);
+	}
+	
+	@PostMapping("/cart")
+	 public String orderCurrentPost(@ModelAttribute("order") Order order, Model model) {
 		
 		order.setAddres("Moscow");
 		
 		order.setPrice(calculatePrice(order));
 		
 		order.setOrdersDate(LocalDateTime.now());
+		log.info(""+order);
 		/*oRepo.save(order);
 		for (Burger burger : order.getChart()) {
 			Reference ref = new Reference();
@@ -72,8 +87,23 @@ public class OrderController {
 		return "redirect:/lobby";
 	 }
 	
-	public static double calculatePrice(Order order) {
-		return order.getChart().stream().mapToDouble(i->i.getPrice()).sum();
+	@PostMapping()
+	 public String OrderPost(@ModelAttribute("order") Order order, Model model) {
+		
+//		order.setAddres("Moscow");
+//		
+//		
+//		
+//		order.setOrdersDate(LocalDateTime.now());
+		
+		order.setPrice(calculatePrice(order));
+		log.info(""+order);
+		return "redirect:/order/cart";
+	 }
+	
+	public double calculatePrice(Order order) {
+		return order.getCart().stream().mapToDouble(i-> bRepo.getBurgerByCodeName(i).getPrice()).sum();
 	}
+	
 
 }

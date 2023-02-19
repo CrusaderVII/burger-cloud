@@ -30,5 +30,13 @@ public class Burger {
 	@Column(name="name_for_image")
 	private String imageName;
 
+	public String getName() {
+		return this.name.toUpperCase();
+	}
 	
+	public double getPrice() {
+		String res = String.format("%.2f",this.price);
+		res = res.replaceAll(",", "\\.");
+		return Double.parseDouble(res);
+	}
 }

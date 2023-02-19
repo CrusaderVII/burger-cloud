@@ -1,4 +1,4 @@
-package burgers.web;
+package burgers.web.account;
 
 import java.io.IOException;
 

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 		xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Burger Cloud</title>
+	<link href="url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');">
+	<link th:href="@{/styles/homeStyle.css}" rel="stylesheet" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		li a:hover {
+			color: white;
+			transition-duration: 0.4s;
+		}
+		a:hover {
+			color: white;
+			background: #3FC38C;
+		}
+		input:hover {
+			color: white;
+			background-color: #3FC38C;
+			transition-duration: 0.4s;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div>
+			<nav>
+			 <ul>
+			  <li><a href="/">Home</a></li>
+			  <li><a href="/login">Log in</a></li>
+			  <li><a href="/">About</a></li>
+			 </ul>
+			</nav>
+		</div>
+	</header>
+	<br/><br/><br/><br/><br/><br/>
+	<img class="center" th:src="@{/images/BurgerCloudLogo.png}"/>
+	<br>
+	<div class="wrapper-for-order-head">
+			<nav>
+				<li><a href="/" style="font-size: 25px">Home</a></li>
+				<li><a href="/order/cart" style="font-size: 25px">Cart</a></li>
+			</nav>
+		</div>
+	
+	
+		<div class="wrapper-for-catalog" th:each="burger : ${burgers}">
+		<form method="post" th:action="@{/order}" th:object="${order}">
+		 	<img style='border:2px solid #3FC38C; border-radius: 4px; float: left;' th:src="@{/images/BurgerSimp.png}"/>
+		 	<div>
+			 	<span class="burger-name" th:text="${burger.name}"></span>
+			 	<br/><br/><br/>
+			 	<div style="padding-bottom: 90px">
+					<span class="description">Lorem ipsum dolor sit amet, consectetur </span>
+					<span class="description">adipiscing elit, sed do eiusmod tempor incidi </span>
+					<span class="description">labore et dolore magna aliqua.</span>
+				</div>
+				<br/><br/><br/>
+				<div>
+					
+					<span style="font-weight: bold; font-size: 25px; margin-left: 30px;" >PRICE: </span>
+					<span style="font-weight: bold; font-size: 25px;" th:text="${burger.price}"></span>
+					<span style="font-weight: bold; font-size: 25px;">$</span>
+					<input class="input-for-buy" type="hidden" th:value="${burger.codeName}" name="cart">
+					
+					<input style="margin-left: 300px; border-radius: 20px; font-size: 19px;" 
+						class="input-for-buy" type="submit" value="ADD TO CART!">
+					
+				</div>
+			</div>
+		</form>
+	 	</div>
+	 	
+	 	<br/>
+	
+	
+</body>
+</html>

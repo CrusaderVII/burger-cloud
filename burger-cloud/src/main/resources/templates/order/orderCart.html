@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 		xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Burger Cloud</title>
+	<link href="url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');">
+	<link th:href="@{/styles/cartStyle.css}" rel="stylesheet" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		li a:hover {
+			color: white;
+			transition-duration: 0.4s;
+		}
+		a:hover {
+			color: white;
+			background: #3FC38C;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div>
+			<nav>
+			 <ul>
+			  <li><a href="/">Home</a></li>
+			  <li><a href="/login">Log in</a></li>
+			  <li><a href="/">About</a></li>
+			 </ul>
+			</nav>
+		</div>
+	</header>
+	<br/><br/><br/><br/><br/><br/>
+	<img class="center" th:src="@{/images/BurgerCloudLogo.png}"/>
+	<br>
+	<a class="main-button" th:href="@{/order}">ADD BURGER</a>
+	<br/><br/><br/><br/>
+	<form method="post" th:action="@{/order/cart}" th:object="${order}">
+		<div style="margin-left: 100px; margin-bottom: 50px; width: 40%; border: 3px solid #3FC38C;
+		border-radius: 10px; text-align: center; padding-bottom: 10px;">
+			<br/><br/><br/>
+			<div class="wrapper-for-list" th:each="orderedBurger : ${orderedBurgers}">
+				<span style="font-weight: bold; font-size: 25px; margin-left: 10px; float: left" 
+					th:text="${orderedBurger.name}"></span>
+				<span style="font-weight: bold; font-size: 25px; margin-left: 30px;" 
+					th:text="${orderedBurger.price}" ></span>
+				<span style="font-weight: bold; font-size: 25px;" >$</span>
+				<br/>
+			</div>
+			<br/>
+			<span style="font-weight: bold; font-size: 30px; float: left; padding-left: 70px"> TOTAL:</span>
+			<span style="font-weight: bold; font-size: 30px;" th:text="${order.price}"></span>
+			<span style="font-weight: bold; font-size: 30px;" >$</span>
+			
+			
+		</div>
+	</form>
+	
+	
+	
+</body>
+</html>

@@ -43,10 +43,17 @@ public class Order {
 	private String addres;
 	
 	@Transient
-	List<Burger> chart = new ArrayList<>();
+	List<String> cart = new ArrayList<>();
 	
-	public void addBurger(Burger burger) {
-		this.chart.add(burger);
+	
+	public void addBurgerCodeName(Burger burger) {
+		this.cart.add(burger.getCodeName());
 	}
+	
+	public void setCart(String codeName) {
+		
+		this.cart.add(codeName);
+	}
+	
 	
 }
