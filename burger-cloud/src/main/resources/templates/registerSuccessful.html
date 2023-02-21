@@ -21,7 +21,10 @@
 			<nav>
 			 <ul>
 			  <li><a href="/">Home</a></li>
-			  <li><a href="/login">Log in</a></li>
+			  <li>
+			  	<a th:if="${user==null}" href="/login" >Log in</a>
+			  	<a th:if="${user!=null}" href="/lobby" th:text="${user.userName}"></a>
+			  </li>
 			  <li><a href="#">About</a></li>
 			 </ul>
 			</nav>

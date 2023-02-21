@@ -16,6 +16,13 @@
 			color: white;
 			background: #3FC38C;
 		}
+		button:hover {
+			color: white;
+			background: #3FC38C;
+		}
+		button.main-button:after {
+			height: 30px;
+		}
 	</style>
 </head>
 
@@ -25,7 +32,10 @@
 			<nav>
 			 <ul>
 			  <li><a href="/">Home</a></li>
-			  <li><a href="/login">Log in</a></li>
+			  <li>
+			  	<a th:if="${user==null}" href="/login" >Log in</a>
+			  	<a th:if="${user!=null}" href="/lobby" th:text="${user.userName}"></a>
+			  </li>
 			  <li><a href="/">About</a></li>
 			 </ul>
 			</nav>
@@ -34,14 +44,16 @@
 	<br/><br/><br/><br/><br/><br/>
 	<img class="center" th:src="@{/images/BurgerCloudLogo.png}"/>
 	<br>
-	<a class="main-button" th:href="@{/order}">ADD BURGER</a>
-	<br/><br/><br/><br/>
 	<form method="post" th:action="@{/order/cart}" th:object="${order}">
+		<a class="main-button" th:href="@{/order}">ADD BURGER</a>
+		<button class="main-button" type="submit" style="margin-left: 470px; text-align: center; 
+		padding-bottom: 30px">BUY!</button>
+		<br/><br/><br/><br/>
 		<div style="margin-left: 100px; margin-bottom: 50px; width: 40%; border: 3px solid #3FC38C;
 		border-radius: 10px; text-align: center; padding-bottom: 10px;">
 			<br/><br/><br/>
 			<div class="wrapper-for-list" th:each="orderedBurger : ${orderedBurgers}">
-				<span style="font-weight: bold; font-size: 25px; margin-left: 10px; float: left" 
+				<span style="font-size: 25px; margin-left: 10px; float: left" 
 					th:text="${orderedBurger.name}"></span>
 				<span style="font-weight: bold; font-size: 25px; margin-left: 30px;" 
 					th:text="${orderedBurger.price}" ></span>
@@ -56,6 +68,7 @@
 			
 		</div>
 	</form>
+	
 	
 	
 	

@@ -77,12 +77,13 @@ nav a {
 	background: #F8E2C1;
 	border-radius: 20px;
 	position: absolute;
-    width: 300px;
+    width: 250px;
     height: 30px;
     border: 2px solid #3FC38C;
     transition-duration: 0.4s;
     font-size: 20px;
     margin-left: 7%;    
+    text-decoration: none;
 }
 .button-for-buy {
 	width: 170px;

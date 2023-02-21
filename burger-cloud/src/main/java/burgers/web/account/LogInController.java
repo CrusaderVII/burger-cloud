@@ -24,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/login")
 @Slf4j
-@SessionAttributes("userLogin")
+@SessionAttributes({"userLogin", "user"})
 public class LogInController {
 	
 	@Autowired
-	private UserRepository repo; 
+	private UserRepository uRepo; 
 	
 	@Autowired
 	private UserServices serv;
@@ -39,11 +39,15 @@ public class LogInController {
 		return "logIn";
 	 }
 	
+	
+	
 	@PostMapping
-	 public String userLogging(@Valid @ModelAttribute("userLogin") UserLogin userLogin, Errors errors) {
+	 public String userLogging(@Valid @ModelAttribute("userLogin") UserLogin userLogin, Errors errors, Model model) {
 		if (errors.hasErrors()) {
 			return "logIn";
 		}
+		
+		model.addAttribute("user", uRepo.getUserByUserName(userLogin.getUserLoginName()));
 		return "redirect:/lobby";
 	 }
 }

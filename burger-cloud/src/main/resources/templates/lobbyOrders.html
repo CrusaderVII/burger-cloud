@@ -12,14 +12,7 @@
 			color: white;
 			transition-duration: 0.4s;
 		}
-		img {
-			animation-duration: 2s;
-			animation-name: slidein;
-		}
-		div header {
-			animation-duration: 2s;
-			animation-name: slidein;
-		}
+		
 		.bottom header a:hover{
 			color: #3FC38C;
 			transition-duration: 0.4s;
@@ -38,7 +31,10 @@
 			<nav>
 			 <ul>
 			  <li><a href="/">Home</a></li>
-			  <li><a href="/login">Log in</a></li>
+			  <li>
+			  	<a th:if="${user==null}" href="/login" >Log in</a>
+			  	<a th:if="${user!=null}" href="/lobby" th:text="${user.userName}"></a>
+			  </li>
 			  <li><a href="/">About</a></li>
 			 </ul>
 			</nav>
@@ -50,19 +46,34 @@
 		<header>
 			<nav>
 			 <ul>
-			  <li><form action="/">
+			  <li><form action="/lobby">
 			  	<button type="submit">HOME</button>
 			  </form></li>
-			  <li><form action="/">
+			  <li><form action="/lobby/history">
 			  	<button type="submit">ORDERS HISTORY</button>
 			  </form></li>
-			  <li><form action="/">
+			  <li><form action="/order">
 			  	<button type="submit">ORDER BURGERS!</button>
 			  </form></li>
 			 </ul>
 			</nav>
 		</header>
 	</div>
+	
+	<div style="margin-left: 320px">
+		<div th:each="order : ${usersOrders}" style="border-bottom: 1px solid #3FC38C; width: 57%;
+		margin-bottom: 50px;">
+			<span style="font-size: 25px; margin-left: 10px; float: left">Order number: </span>
+			<span style="font-weight: bold; font-size: 25px; margin-left: 50px;" 
+			th:text="${order.id}"> </span>
+			<span style="font-size: 25px; margin-left: 100px;">Total:</span>
+			<span style="font-weight: bold; font-size: 25px; margin-left: 50px;" 
+			th:text="${order.price}"> </span>
+			<span style="font-weight: bold; font-size: 25px;">$</span>
+		</div>
+	</div>
+	
+	
 	
 	
 </body>

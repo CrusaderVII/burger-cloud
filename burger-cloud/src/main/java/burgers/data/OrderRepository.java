@@ -12,6 +12,7 @@ public interface OrderRepository extends
 	
 	public Order getOrderById(Long id);
 	
-	
+	@Query(value = "SELECT * FROM orders WHERE id = :userId", nativeQuery = true)
+	public Iterable<Order> getAllById(int userId);
 	
 }

@@ -12,14 +12,6 @@
 			color: white;
 			transition-duration: 0.4s;
 		}
-		img {
-			animation-duration: 2s;
-			animation-name: slidein;
-		}
-		div header {
-			animation-duration: 2s;
-			animation-name: slidein;
-		}
 		.bottom header a:hover{
 			color: #3FC38C;
 			transition-duration: 0.4s;
@@ -38,7 +30,10 @@
 			<nav>
 			 <ul>
 			  <li><a href="/">Home</a></li>
-			  <li><a href="/login">Log in</a></li>
+			  <li>
+			  	<a th:if="${user==null}" href="/login" >Log in</a>
+			  	<a th:if="${user!=null}" href="/lobby" th:text="${user.userName}"></a>
+			  </li>
 			  <li><a href="/">About</a></li>
 			 </ul>
 			</nav>
@@ -50,10 +45,10 @@
 		<header>
 			<nav>
 			 <ul>
-			  <li><form action="/">
+			  <li><form action="/lobby">
 			  	<button type="submit">HOME</button>
 			  </form></li>
-			  <li><form action="/">
+			  <li><form action="/lobby/history">
 			  	<button type="submit">ORDERS HISTORY</button>
 			  </form></li>
 			  <li><form action="/">
@@ -62,8 +57,11 @@
 			 </ul>
 			</nav>
 		</header>
+		<br/><br/>		
 	</div>
-	
-	
+	<form th:action="@{/lobby}" th:object="${user}">
+		<span style="font-size: 25px; margin-left: 310px">Welcome back, </span>
+		<span style="font-size: 25px;" th:text="${user.userName}">Welcome back, </span>
+	</form>
 </body>
 </html>

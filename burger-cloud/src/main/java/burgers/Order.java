@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SecondaryTable;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
@@ -29,7 +30,7 @@ public class Order {
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name="id")
+	@JoinColumn(name="id", nullable=true)
 	private User user;
 	
 	@Column(name = "price", nullable = false)
@@ -53,6 +54,12 @@ public class Order {
 	public void setCart(String codeName) {
 		
 		this.cart.add(codeName);
+	}
+	
+	public double getPrice() {
+		String res = String.format("%.2f",this.price);
+		res = res.replaceAll(",", "\\.");
+		return Double.parseDouble(res);
 	}
 	
 	

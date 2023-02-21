@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/order")
-@SessionAttributes("order")
+@SessionAttributes({"order", "user"})
 @Slf4j
 public class OrderController {
 	
@@ -76,26 +76,33 @@ public class OrderController {
 		order.setPrice(calculatePrice(order));
 		
 		order.setOrdersDate(LocalDateTime.now());
+		
+		if (model.getAttribute("user")==null) {
+			order.setUser(null);
+			oRepo.save(order);
+			for (String codeName : order.getCart()) {
+				Reference ref = new Reference();
+				ref.setBurger(bRepo.getBurgerByCodeName(codeName));
+				ref.setOrder(order);
+				rRepo.save(ref);
+			}
+			return "redirect:/";
+		}else {
+			order.setUser((User) model.getAttribute("user"));
+		}
 		log.info(""+order);
-		/*oRepo.save(order);
-		for (Burger burger : order.getChart()) {
+		oRepo.save(order);
+		for (String codeName : order.getCart()) {
 			Reference ref = new Reference();
-			ref.setBurger(burger);
+			ref.setBurger(bRepo.getBurgerByCodeName(codeName));
 			ref.setOrder(order);
 			rRepo.save(ref);
-		}*/
+		}
 		return "redirect:/lobby";
 	 }
 	
 	@PostMapping()
-	 public String OrderPost(@ModelAttribute("order") Order order, Model model) {
-		
-//		order.setAddres("Moscow");
-//		
-//		
-//		
-//		order.setOrdersDate(LocalDateTime.now());
-		
+	 public String OrderPost(@ModelAttribute("order") Order order, Model model) {		
 		order.setPrice(calculatePrice(order));
 		log.info(""+order);
 		return "redirect:/order/cart";
