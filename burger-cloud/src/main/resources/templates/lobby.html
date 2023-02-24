@@ -20,6 +20,20 @@
 			color: white;
 			background: #3FC38C;
 		}
+		.bottom button.logout:hover {
+			color: white;
+			background: #FF4F4D;
+		}
+		input:hover {
+			  width: 30%;
+			  background-color: #3FC38C;
+			  border-color: #3FC38C;
+		}
+		input:focus {
+			  width: 30%;
+			  background-color: #3FC38C;
+			  border-color: #3FC38C;
+		}
 	
 	</style>
 </head>
@@ -54,14 +68,27 @@
 			  <li><form action="/">
 			  	<button type="submit" formaction="/order">ORDER BURGERS!</button>
 			  </form></li>
+			  <li><form action="/login">
+			  	<button class="logout"style="border-color: #FF4F4D" type="submit">LOG OUT</button>
+			  </form></li>
 			 </ul>
 			</nav>
 		</header>
 		<br/><br/>		
 	</div>
-	<form th:action="@{/lobby}" th:object="${user}">
-		<span style="font-size: 25px; margin-left: 310px">Welcome back, </span>
-		<span style="font-size: 25px;" th:text="${user.userName}">Welcome back, </span>
+	<form method="POST" th:action="@{/lobby}" th:object="${emailVerification}">
+		<span style="font-size: 25px; margin-left: 325px">Welcome back, </span>
+		<span style="font-size: 25px;" th:text="${emailVerification.userName}">Welcome back, </span>
+		<br/><br/><br/>
+		<div style="margin-left: 325px" th:if="${emailVerification.isVerified}==false">
+			<input type="text" th:field="*{emailCode}" name="code" placeholder="Verification code..."/>
+			<input type="submit" value="Verify">
+			<br/><br/>
+			<span style="color: #FF4F4D;" th:if="${#fields.hasErrors('global')}"
+			th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
+		</div>
 	</form>
+	
+	
 </body>
 </html>

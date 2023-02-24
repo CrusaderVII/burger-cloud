@@ -59,11 +59,15 @@ public class UserServices {
         
         configuration.getTemplate("mail.html").dump(writer);
         
-        helper.setText(writer.getBuffer().toString(), true);
-        mailSender.send(mimeMessage);
-        
         user.setVerificationCode(randomString());
         user.setEmailIsVerified(false);
+        
+        mimeMessage.setContent("<span>Your code: </span>" +
+        					   "<span>"+user.getVerificationCode()+"</span>" +
+        					   "<br/><br/><br/>" +
+        					   "<a href=\"http://localhost:8080/lobby\">Finish your registration!</a>", "text/html");
+        
+        mailSender.send(mimeMessage);
     }
     
     public static String randomString() {

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import burgers.User;
 import burgers.data.UserRepository;
@@ -21,7 +23,7 @@ import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@RestController
 @RequestMapping("/register")
 @Slf4j
 @SessionAttributes("user")
@@ -34,21 +36,22 @@ public class RegisterController {
     UserServices service;
 	
 	@GetMapping
-	public String register(Model model) {
+	public ModelAndView register(Model model) {
 		model.addAttribute("user", new User());
-		return "register";
+		return new ModelAndView("register.html");
 	}
 	
 	@PostMapping
-	 public String userRegistration(@ModelAttribute("user") @Valid User user, Errors errors) 
+	 public ModelAndView userRegistration(@ModelAttribute("user") @Valid User user, Errors errors) 
 			 throws MessagingException, MalformedTemplateNameException, ParseException, IOException{
+		ModelAndView modelAndView = new ModelAndView();
 		if (errors.hasErrors()) {
-			log.info("Error: " + errors.getGlobalErrorCount());
-			 return "register";
+			modelAndView.setViewName("register.html");
+			return modelAndView;
 		}
 		service.register(user);
-		log.info("New user created: " + user);
-		return "redirect:/register_success";
+		modelAndView.setViewName("redirect:/register_success");
+		return modelAndView;
 	 }
 	
 	

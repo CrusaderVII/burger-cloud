@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import burgers.Burger;
 import burgers.Order;
@@ -28,7 +30,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 
-@Controller
+@RestController
 @RequestMapping("/order")
 @SessionAttributes({"order", "user"})
 @Slf4j
@@ -47,19 +49,19 @@ public class OrderController {
 	ReferenceRepository rRepo;
 	
 	@GetMapping
-	public String order(@ModelAttribute("order") Order order) {
-		return "order/orderChoosing.html";
+	public ModelAndView order(@ModelAttribute("order") Order order) {
+		return new ModelAndView("order/orderChoosing.html");
 	}
 	
 	@GetMapping("/cart")	
-	public String orderCurrent(@ModelAttribute("order") Order order, Model model) {
+	public ModelAndView orderCurrent(@ModelAttribute("order") Order order, Model model) {
 		List<Burger> orderedBurgers = new ArrayList<>();
 		order.getCart().stream()
 			.forEach(i -> orderedBurgers.add(bRepo.getBurgerByCodeName(i)));
 		
 		model.addAttribute("orderedBurgers", orderedBurgers);
 		
-		return "order/orderCart.html";
+		return new ModelAndView("order/orderCart.html");
 	}
 	
 	@ModelAttribute
@@ -69,7 +71,8 @@ public class OrderController {
 	}
 	
 	@PostMapping("/cart")
-	 public String orderCurrentPost(@ModelAttribute("order") Order order, Model model) {
+	 public ModelAndView orderCurrentPost(@ModelAttribute("order") Order order, Model model) {
+		ModelAndView modelAndView = new ModelAndView();
 		
 		order.setAddres("Moscow");
 		
@@ -86,7 +89,9 @@ public class OrderController {
 				ref.setOrder(order);
 				rRepo.save(ref);
 			}
-			return "redirect:/";
+			modelAndView.setViewName("redirect:/");
+			
+			return modelAndView;
 		}else {
 			order.setUser((User) model.getAttribute("user"));
 		}
@@ -98,14 +103,16 @@ public class OrderController {
 			ref.setOrder(order);
 			rRepo.save(ref);
 		}
-		return "redirect:/lobby";
+		modelAndView.setViewName("redirect:/lobby");
+		
+		return modelAndView;
 	 }
 	
 	@PostMapping()
-	 public String OrderPost(@ModelAttribute("order") Order order, Model model) {		
+	 public ModelAndView OrderPost(@ModelAttribute("order") Order order, Model model) {		
 		order.setPrice(calculatePrice(order));
 		log.info(""+order);
-		return "redirect:/order/cart";
+		return new ModelAndView("redirect:/order/cart");
 	 }
 	
 	public double calculatePrice(Order order) {

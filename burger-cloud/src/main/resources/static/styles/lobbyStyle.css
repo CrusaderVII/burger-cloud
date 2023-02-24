@@ -12,6 +12,22 @@
     margin-left: 0;
   }
 }
+input {
+  width: 17%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  display: block-inline;
+  border-color: #3FC38C;
+  font-size: 16px;
+  background: #F8E2C1;
+  background-position: 10px; 
+  padding-bottom: 10px;
+  padding-top: 10px;
+  transition-duration: 0.4s;
+  transition: width 0.6s;
+}
+
 .bottom {
 	position: relative;
 	height: 300px;
@@ -47,7 +63,7 @@
 .bottom li {
 	height: 35px;
     text-align: center;
-    padding-right: 220px;
+    padding-right: 150px;
     padding-bottom: 45px;
     
 }
@@ -55,11 +71,11 @@
 	background: #F8E2C1;
 	border-radius: 20px;
 	position: absolute;
-    width: 200px;
+    width: 150px;
     height: 50px;
     border-color: #3FC38C;
     transition-duration: 0.4s;
-    font-size: 20px;    
+    font-size: 17px;    
 }
 body {
 	background: #F8E2C1;
