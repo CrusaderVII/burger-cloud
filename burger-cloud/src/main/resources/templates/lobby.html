@@ -77,8 +77,8 @@
 		<br/><br/>		
 	</div>
 	<form method="POST" th:action="@{/lobby}" th:object="${emailVerification}">
-		<span style="font-size: 25px; margin-left: 325px">Welcome back, </span>
-		<span style="font-size: 25px;" th:text="${emailVerification.userName}">Welcome back, </span>
+		<span style="font-size: 25px; margin-left: 350px">Welcome back, </span>
+		<span style="font-size: 25px; font-weight: bold" th:text="${emailVerification.userName}"></span>
 		<br/><br/><br/>
 		<div style="margin-left: 325px" th:if="${emailVerification.isVerified}==false">
 			<input type="text" th:field="*{emailCode}" name="code" placeholder="Verification code..."/>

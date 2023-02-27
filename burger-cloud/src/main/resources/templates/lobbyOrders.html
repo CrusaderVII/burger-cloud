@@ -8,6 +8,11 @@
 	<link th:href="@{/styles/lobbyStyle.css}" rel="stylesheet" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
+	
+		ion-icon {
+		  --ionicon-stroke-width: 23px;
+		  font-size: 30px;
+		}
 		li a:hover {
 			color: white;
 			transition-duration: 0.4s;
@@ -44,7 +49,7 @@
 			</nav>
 		</div>
 	</header>
-	<br/><br/><br/><br/><br/><br/>
+	<br/><br/>
 	<div class="bottom">
 		<img th:src="@{/images/BurgerCloudLogo.png}"/>
 		<header>
@@ -66,22 +71,27 @@
 			</nav>
 		</header>
 	</div>
-	
-	<div style="margin-left: 320px">
-		<div th:each="order : ${usersOrders}" style="border-bottom: 1px solid #3FC38C; width: 57%;
-		margin-bottom: 50px;">
-			<span style="font-size: 25px; margin-left: 10px; float: left">Order number: </span>
-			<span style="font-weight: bold; font-size: 25px; margin-left: 50px;" 
-			th:text="${order.id}"> </span>
-			<span style="font-size: 25px; margin-left: 100px;">Total:</span>
-			<span style="font-weight: bold; font-size: 25px; margin-left: 50px;" 
-			th:text="${order.price}"> </span>
-			<span style="font-weight: bold; font-size: 25px;">$</span>
+	<span style="font-size: 25px; margin-left: 345px; font-weight: bold;">Your orders: </span>
+	<br/><br/>
+	<div class="scroll-bg">
+		<div class="scroll-div">
+			<div th:each="order : ${usersOrders}" style="border-bottom: 1px solid #3FC38C; width: 95%;
+			margin-top: 55px; margin-left: 20px">
+				<span style="font-size: 25px; margin-left: 10px; float: left">№: </span>
+				<span style="font-weight: bold; font-size: 25px; margin-left: 50px;" 
+				th:text="${order.id}"> </span>
+				<span style="font-size: 25px; margin-left: 100px;"><ion-icon name="cash-outline"></ion-icon></span>
+				<span style="font-weight: bold; font-size: 25px; margin-left: 20px;" 
+				th:text="${order.price}"> </span>
+				<span style="font-weight: bold; font-size: 25px;">$</span>
+				
+				<span style="font-size: 25px; margin-left: 100px;"><ion-icon name="time-outline"></ion-icon></span>
+				<span style="font-weight: bold; font-size: 25px; margin-left: 20px;" 
+				th:text="${order.ordersDate}"> </span>
+			</div>
 		</div>
 	</div>
-	
-	
-	
-	
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

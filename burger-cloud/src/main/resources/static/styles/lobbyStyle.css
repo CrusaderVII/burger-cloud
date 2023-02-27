@@ -30,7 +30,7 @@ input {
 
 .bottom {
 	position: relative;
-	height: 300px;
+	height: 170px;
 	width: 300px;
 	padding-left: 50%;
 }
@@ -96,6 +96,25 @@ header::after {
 	clear: both;
 }
 
+.scroll-bg{
+	margin-left: 320px; 
+	height: 420px; 
+	width: 800px; 
+	border: 3px solid #3FC38C; 
+	border-radius: 20px;
+	padding: 10px
+	
+}
+
+.scroll-div{
+	height: 420px; 
+	width: 800px; 
+	overflow: hidden; 
+	overflow-y: scroll;
+	margin-right: 10px;
+	
+}
+
 nav {
 	background: #3FC38C;
 	width: 100%;
@@ -119,4 +138,23 @@ nav a {
 	text-decoration: none;
 	text-transform: uppercase;
 	font-size: 21px;
+}
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #3FC38C; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #31A577; 
 }

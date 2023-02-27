@@ -8,11 +8,15 @@
 	<link th:href="@{/styles/cartStyle.css}" rel="stylesheet" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
+		ion-icon {
+		  --ionicon-stroke-width: 23px;
+		  font-size: 30px;
+		}
 		li a:hover {
 			color: white;
 			transition-duration: 0.4s;
 		}
-		a:hover {
+		a.main-button:hover{
 			color: white;
 			background: #3FC38C;
 		}
@@ -22,6 +26,13 @@
 		}
 		button.main-button:after {
 			height: 30px;
+		}
+		ion-icon:hover {
+			color: #FF4F4D
+		}
+		input.main-button:hover {
+			color: white;
+			background: #3FC38C;
 		}
 	</style>
 </head>
@@ -46,31 +57,77 @@
 	<br>
 	<form method="post" th:action="@{/order/cart}" th:object="${order}">
 		<a class="main-button" th:href="@{/order}">ADD BURGER</a>
-		<button class="main-button" type="submit" style="margin-left: 470px; text-align: center; 
-		padding-bottom: 30px">BUY!</button>
 		<br/><br/><br/><br/>
-		<div style="margin-left: 100px; margin-bottom: 50px; width: 40%; border: 3px solid #3FC38C;
-		border-radius: 10px; text-align: center; padding-bottom: 10px;">
-			<br/><br/><br/>
-			<div class="wrapper-for-list" th:each="orderedBurger : ${orderedBurgers}">
-				<span style="font-size: 25px; margin-left: 10px; float: left" 
-					th:text="${orderedBurger.name}"></span>
-				<span style="font-weight: bold; font-size: 25px; margin-left: 30px;" 
-					th:text="${orderedBurger.price}" ></span>
-				<span style="font-weight: bold; font-size: 25px;" >$</span>
+
+			<div style="margin-left: 100px; margin-bottom: 50px; width: 50%; border: 3px solid #3FC38C;
+			border-radius: 10px; text-align: center; padding-bottom: 10px; padding-right: 20px">
+				<br/><br/><br/>
+				<div class="wrapper-for-list" th:each="orderedBurger : ${orderedBurgers}">
+					<span style="font-size: 25px;" 
+						th:text="${orderedBurger.key.name}"></span>
+					<span style="font-size: 25px;">(</span>		
+					<span style="font-size: 25px; font-weight: bold" 
+						th:text="${orderedBurger.value}"></span>
+					<span style="font-size: 25px;">)</span>	
+					
+					<span style="font-weight: bold; font-size: 25px; margin-left: 70px;" 
+						th:text="${orderedBurger.key.price * orderedBurger.value}" ></span>
+					<span style="font-weight: bold; font-size: 25px;" >$</span>
+					<a th:href="@{/order/cart/delete_burger(codeName=${orderedBurger.key.codeName})}" style="float: right; margin-bottom: 10px;">
+						<ion-icon name="close-circle-outline"></ion-icon>
+	      			</a>
+					<br/>
+				</div>
 				<br/>
+				<span style="font-weight: bold; font-size: 30px; float: left; padding-left: 70px"> TOTAL:</span>
+				<span style="font-weight: bold; font-size: 30px;" th:text="${order.price}"></span>
+				<span style="font-weight: bold; font-size: 30px;" >$</span>
 			</div>
-			<br/>
-			<span style="font-weight: bold; font-size: 30px; float: left; padding-left: 70px"> TOTAL:</span>
-			<span style="font-weight: bold; font-size: 30px;" th:text="${order.price}"></span>
-			<span style="font-weight: bold; font-size: 30px;" >$</span>
-			
-			
-		</div>
+			<div style="margin-left: 100px; margin-bottom: 50px; width: 50%; border: 3px solid #3FC38C;
+				border-radius: 10px; padding-bottom: 10px; padding: 10px; height: 450px; padding-bottom: 10px">
+					<div style="border-bottom: 1px solid #3FC38C; padding-bottom: 30px">
+						<span style="font-size: 25px; margin-left: 20px; margin-top: 20px;
+						float: left">Address: </span>	
+						<input type="text" style="margin-left: 70px; margin-top: 10px" th:field="*{address}" name="address"/>
+						<div th:if="${#fields.hasErrors('address')}" 
+						style="margin-top: 17px; float: right; margin-right: 160px">
+							<ion-icon name="warning-outline" class="validationError"></ion-icon>
+						</div>
+					</div>
+					<br/><br/>
+					<div style="border-bottom: 1px solid #3FC38C; padding-bottom: 30px">
+						<span style="font-size: 25px; margin-left: 20px; margin-top: 10px;
+						float: left">Card number: </span>	
+						<input type="text" th:field="*{ccNumber}" name="ccNumber"/>
+							<div th:if="${#fields.hasErrors('ccNumber')}" 
+							style="margin-top: 7px; float: right; margin-right: 160px">
+								<ion-icon name="warning-outline" class="validationError"></ion-icon>
+							</div>
+							
+						<br/><br/>
+						<span style="font-size: 25px; margin-left: 20px; margin-top: 10px;
+						float: left">Expiration: </span>	
+						<input type="text" style="margin-left: 26px" th:field="*{ccExperaion}" name="ccExperaion"/>
+							<div th:if="${#fields.hasErrors('ccExperaion')}" 
+							style="margin-top: 7px; float: right; margin-right: 160px">
+								<ion-icon name="warning-outline" class="validationError"></ion-icon>
+							</div>
+							
+						<br/><br/>
+						<span style="font-size: 25px; margin-left: 20px; margin-top: 10px;
+						float: left">CVV: </span>	
+						<input type="text" style="margin-left: 130px" th:field="*{ccCVV}" name="ccCVV"/>
+							<div th:if="${#fields.hasErrors('ccCVV')}" 
+							style="margin-top: 7px; float: right; margin-right: 160px">
+								<ion-icon name="warning-outline" class="validationError"></ion-icon>
+							</div>
+					</div>
+					<input type="submit" class="main-button" style="padding-bottom: 10px; height: 45px;
+					margin-left: 250px; margin-top: 50px" value="BUY!"/>
+				</div>
+		
 	</form>
-	
-	
-	
-	
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

@@ -45,7 +45,10 @@
 	<div class="wrapper-for-order-head">
 			<nav>
 				<li><a href="/" style="font-size: 25px">Home</a></li>
-				<li><a href="/order/cart" style="font-size: 25px">Cart</a></li>
+				<li><a href="/order/cart" style="font-size: 25px">Cart
+					<span style="font-size: 25px">(</span>
+					<span style="font-size: 25px" th:text="${order.cart.size}"></span>
+					<span style="font-size: 25px">)</span></a></li>
 			</nav>
 		</div>
 	
@@ -76,9 +79,8 @@
 			</div>
 		</form>
 	 	</div>
-	 	
-	 	<br/>
-	
-	
-</body>
+	 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+		
+	</body>
 </html>
