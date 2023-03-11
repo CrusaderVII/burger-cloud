@@ -84,49 +84,78 @@
 				<span style="font-weight: bold; font-size: 30px;" >$</span>
 			</div>
 			<div style="margin-left: 100px; margin-bottom: 50px; width: 50%; border: 3px solid #3FC38C;
-				border-radius: 10px; padding-bottom: 10px; padding: 10px; height: 450px; padding-bottom: 10px">
-					<div style="border-bottom: 1px solid #3FC38C; padding-bottom: 30px">
-						<span style="font-size: 25px; margin-left: 20px; margin-top: 20px;
-						float: left">Address: </span>	
-						<input type="text" style="margin-left: 70px; margin-top: 10px" th:field="*{address}" name="address"/>
+				border-radius: 10px; padding-top: 20px; padding: 20px;  padding-bottom: 170px">
+					<div style="border-bottom: 1px solid #3FC38C; padding-bottom: 8%">
+						<span style="font-size: 25px; margin-left: 20px; margin-top: 2%;
+						float: left; display: inline">Address: </span>	
+						<input th:if="${insertFlagAddress}!=true" type="text" style="margin-left: 70px; 
+						margin-top: 10px" th:field="*{address}" name="addres"/>
 						<div th:if="${#fields.hasErrors('address')}" 
 						style="margin-top: 17px; float: right; margin-right: 160px">
 							<ion-icon name="warning-outline" class="validationError"></ion-icon>
+						</div>
+						<div th:if="${insertFlagAddress}==true">
+							<span  style=" font-size: 20px; margin-left: 20px; font-weight: bold; margin-top: 2.3%;
+							float: left; display: inline" th:text="${user.address}"></span>
 						</div>
 					</div>
 					<br/><br/>
 					<div style="border-bottom: 1px solid #3FC38C; padding-bottom: 30px">
 						<span style="font-size: 25px; margin-left: 20px; margin-top: 10px;
-						float: left">Card number: </span>	
+						float: left; display: inline">Card number: </span>
+						<div th:if="${insertFlagCreditCard}!=true">
 						<input type="text" th:field="*{ccNumber}" name="ccNumber"/>
-							<div th:if="${#fields.hasErrors('ccNumber')}" 
-							style="margin-top: 7px; float: right; margin-right: 160px">
-								<ion-icon name="warning-outline" class="validationError"></ion-icon>
-							</div>
-							
-						<br/><br/>
+						<div th:if="${#fields.hasErrors('ccNumber')}" 
+						style="margin-top: 7px; float: right; margin-right: 160px">
+							<ion-icon name="warning-outline" class="validationError"></ion-icon>
+						</div>
+						</div>
+						<div th:if="${insertFlagCreditCard}==true">
+							<span th:text="${user.creditCard.ccNumber}" style=" font-size: 20px; margin-left: 20px; 
+							font-weight: bold; margin-top: 1.5%; float: left; display: inline"></span>	
+						</div>	
+						<br/><br/><br/>
 						<span style="font-size: 25px; margin-left: 20px; margin-top: 10px;
-						float: left">Expiration: </span>	
+						float: left">Expiration: </span>
+						<div th:if="${insertFlagCreditCard}!=true">
 						<input type="text" style="margin-left: 26px" th:field="*{ccExperaion}" name="ccExperaion"/>
-							<div th:if="${#fields.hasErrors('ccExperaion')}" 
-							style="margin-top: 7px; float: right; margin-right: 160px">
-								<ion-icon name="warning-outline" class="validationError"></ion-icon>
-							</div>
-							
-						<br/><br/>
+						<div th:if="${#fields.hasErrors('ccExperaion')}" 
+						style="margin-top: 7px; float: right; margin-right: 160px">
+							<ion-icon name="warning-outline" class="validationError"></ion-icon>
+						</div>
+						</div>	
+						<div th:if="${insertFlagCreditCard}==true">
+							<span th:text="${user.creditCard.ccExperation}" style=" font-size: 20px; margin-left: 20px; 
+							font-weight: bold; margin-top: 1.5%; float: left; display: inline"></span>	
+						</div>		
+						<br/><br/><br/>
 						<span style="font-size: 25px; margin-left: 20px; margin-top: 10px;
 						float: left">CVV: </span>	
+						<div th:if="${insertFlagCreditCard}!=true">
 						<input type="text" style="margin-left: 130px" th:field="*{ccCVV}" name="ccCVV"/>
-							<div th:if="${#fields.hasErrors('ccCVV')}" 
-							style="margin-top: 7px; float: right; margin-right: 160px">
-								<ion-icon name="warning-outline" class="validationError"></ion-icon>
-							</div>
+						<div th:if="${#fields.hasErrors('ccCVV')}" 
+						style="margin-top: 7px; float: right; margin-right: 160px">
+							<ion-icon name="warning-outline" class="validationError"></ion-icon>
+						</div>
+						</div>
+						<div th:if="${insertFlagCreditCard}==true">
+							<span th:text="${user.creditCard.ccCVV}" style=" font-size: 20px; margin-left: 20px; 
+							font-weight: bold; margin-top: 1.5%; float: left;"></span>	
+						</div>	
+						<br/><br/><br/>
 					</div>
+					
 					<input type="submit" class="main-button" style="padding-bottom: 10px; height: 45px;
-					margin-left: 250px; margin-top: 50px" value="BUY!"/>
+					margin-left: 380px; margin-top: 50px" value="BUY!"/>
+					<div th:if="${user}!=null">
+						<a th:if="${user}!=null OR ${user.address}!=null OR ${user.creditCard}!=null" th:href="@{/order/cart/insert_data}" class="main-button" 
+						style="margin-top: 50px; margin-right: 50px" >
+						Insert your data</a>
+					</div>
+					
 				</div>
-		
 	</form>
+	
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

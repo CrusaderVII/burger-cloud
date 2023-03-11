@@ -1,5 +1,8 @@
 package burgers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import burgers.data.BurgerRepository;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +29,10 @@ public class Burger {
 	
 	@Column(name="price", nullable = false)
 	private double price;
+	
+	@Column(name="description", nullable = false)
+	private String description;
+
 	
 	@Column(name="name_for_image")
 	private String imageName;

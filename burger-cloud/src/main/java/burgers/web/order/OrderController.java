@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,14 +55,19 @@ public class OrderController {
 	
 	@Autowired
 	ReferenceRepository rRepo;
-	
+		
 	@GetMapping
-	public ModelAndView order(@ModelAttribute("order") Order order) {
+	public ModelAndView order(@ModelAttribute("order") Order order, Model model, HttpSession session) {
+		session.setAttribute("insertFlagAddress", false);
+		session.setAttribute("insertFlagCreditCard", false);
 		return new ModelAndView("order/orderChoosing.html");
 	}
 	
 	@GetMapping("/cart")	
-	public ModelAndView orderCurrent(@ModelAttribute("order") Order order, Errors errors, Model model) {
+	public ModelAndView orderCurrent(@ModelAttribute("order") Order order, HttpSession session, 
+			Errors errors, Model model) {
+		model.addAttribute("insertFlagAddress", (boolean)session.getAttribute("insertFlagAddress"));
+		model.addAttribute("insertFlagCreditCard", (boolean)session.getAttribute("insertFlagCreditCard"));
 		List<Burger> orderedBurgers = new ArrayList<>();
 		order.getCart().stream()
 			.forEach(i -> orderedBurgers.add(bRepo.getBurgerByCodeName(i)));
@@ -69,6 +75,7 @@ public class OrderController {
 		Map<Burger, Integer> orderedBurgersMap = sortBurgers(orderedBurgers);
 		
 		model.addAttribute("orderedBurgers", orderedBurgersMap);
+		log.info(order.getAddress());
 		return new ModelAndView("order/orderCart.html");
 	}
 	
@@ -94,8 +101,28 @@ public class OrderController {
 		return new ModelAndView("redirect:/order/cart");
 	}
 	
+	@GetMapping("/cart/insert_data")	
+	public ModelAndView insertUserData(@ModelAttribute("order") Order order, @ModelAttribute("user") User user,
+			Model model, HttpSession session) {
+		if(user.getAddress()!=null) {
+			order.setAddress(user.getAddress());
+			
+			session.setAttribute("insertFlagAddress", true);
+		}
+		if(user.getCreditCard()!=null) {
+			order.setCcNumber(user.getCreditCard().getCcNumber());
+			order.setCcExperaion(user.getCreditCard().getCcExperation());
+			order.setCcCVV(user.getCreditCard().getCcCVV());
+			
+			session.setAttribute("insertFlagCreditCard", true);
+		}
+		
+		
+		return new ModelAndView("redirect:/order/cart");
+	}
+	
 	@ModelAttribute
-	public void addIngredientsToModel(Model model) {
+	public void addBurgersToModel(Model model) {
 		Iterable<Burger> burgers = bRepo.findAll();
 		model.addAttribute("burgers", burgers);
 	}
@@ -110,7 +137,7 @@ public class OrderController {
 		order.setPrice(calculatePrice(order));
 		
 		order.setOrdersDate(LocalDateTime.now());
-		
+		log.info(order+"");
 		
 		if (model.getAttribute("user")==null) {
 			order.setUser(null);
@@ -125,8 +152,9 @@ public class OrderController {
 			
 			return modelAndView;
 		} else {
+			log.info(order+"");
 			order.setUser((User) model.getAttribute("user"));
-			log.info(""+order);
+			//log.info(""+order);
 			oRepo.save(order);
 			for (String codeName : order.getCart()) {
 				Reference ref = new Reference();

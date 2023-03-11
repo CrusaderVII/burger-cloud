@@ -24,16 +24,14 @@
 			color: white;
 			background: #FF4F4D;
 		}
-		input:hover {
+		
+		input.verification-button:hover {
 			  width: 30%;
+			  color: white;
 			  background-color: #3FC38C;
 			  border-color: #3FC38C;
 		}
-		input:focus {
-			  width: 30%;
-			  background-color: #3FC38C;
-			  border-color: #3FC38C;
-		}
+
 	
 	</style>
 </head>
@@ -80,14 +78,81 @@
 		<span style="font-size: 25px; margin-left: 350px">Welcome back, </span>
 		<span style="font-size: 25px; font-weight: bold" th:text="${emailVerification.userName}"></span>
 		<br/><br/><br/>
-		<div style="margin-left: 325px" th:if="${emailVerification.isVerified}==false">
-			<input type="text" th:field="*{emailCode}" name="code" placeholder="Verification code..."/>
-			<input type="submit" value="Verify">
+		<div style="margin-left: 335px; border-bottom: 1px solid #3FC38C; width: 53%" th:if="${emailVerification.isVerified}==false">
+			<input type="text" th:field="*{emailCode}" name="code" placeholder="Verification code..."
+			style="margin-left: 20px; width: 250px" />
+			<input type="submit" value="Verify" class="verification-button">
 			<br/><br/>
-			<span style="color: #FF4F4D;" th:if="${#fields.hasErrors('global')}"
+			<span style="color: #FF4F4D; margin-left: 20px; font-size: 25px" th:if="${#fields.hasErrors('global')}"
 			th:each="err : ${#fields.globalErrors()}" th:text="${err}"></span>
 		</div>
 	</form>
+	<form method="POST" th:action="@{/lobby/saveAddress}" th:object="${user}">
+		<div style="margin-left: 335px; border-bottom: 1px solid #3FC38C; width: 53%; 
+		margin-top: 15px; padding-bottom: 100px" th:if="${user.address}==null">
+			<span style="margin-left: 20px; font-size: 25px" >You can add your favorite address to make ordering </span>
+			<span style="margin-left: 20px; font-size: 25px;
+			padding-bottom: 15px" >process even more easier:)</span><br/>
+			<br/><br/><br/>
+			<input type="text" th:field="*{address}" name="address" placeholder="Address..."
+			style="margin-left: 20px; width: 250px" />
+			<input type="submit" value="Add address" class="verification-button">
+			<br/><br/>
+		</div>
+		<div style="margin-left: 335px; border-bottom: 1px solid #3FC38C; width: 53%; 
+		margin-top: 15px; padding-bottom: 50px" th:if="${user.address}!=null">
+			<span style="margin-left: 20px; font-size: 25px" >Your favorite address:</span>
+			<br/><br/>
+			<span style="margin-left: 20px; font-size: 25px; font-weight: bold;
+			padding-bottom: 15px" th:text="${user.address}"></span>
+		</div>
+		</form>
+		<div style="margin-left: 335px; border-bottom: 1px solid #3FC38C; width: 53%; 
+		margin-top: 15px; padding-bottom: 50px">
+			<span style="margin-left: 20px; font-size: 25px" >Your favorite credit card:</span>
+			<form method="POST" th:action="@{/lobby/saveCreditCard}" th:object="${creditCard}">
+			<div style="margin-top: 15px; padding-bottom: 50px; margin-left: 30px; border: 2px solid #3FC38C;
+			border-radius: 20px; height: 250px; width: 70%">
+				<div th:if="${user.creditCard}==null">
+				<input type="text" th:field="*{ccNumber}" name="ccNumber" 
+				placeholder="Number..." style="margin-left: 10%; width: 80%;
+				border: none; border-bottom: 1px solid #3FC38C; border-radius: 0px; margin-top: 50px" />
+				
+				
+				<input type="text" th:field="*{ccExperation}" name="ccExperation" 
+				placeholder="Experation..." style="margin-left: 10%; width: 25%;
+				border: none; border-bottom: 1px solid #3FC38C; border-radius: 0px; margin-top: 70px" />
+				
+				<input type="text" th:field="*{ccCVV}" name="ccCVV" 
+				placeholder="CVV..." style="margin-left: 28%; width: 25%;
+				border: none; border-bottom: 1px solid #3FC38C; border-radius: 0px; margin-top: 70px" />
+				</div>
+				
+				<div th:if="${user.creditCard}!=null">
+					<div style="margin-left: 15%; margin-top: 17%; width: 70%; border-bottom: 1px solid #3FC38C;
+					text-align: center">
+					<span th:text="${user.creditCard.ccNumber}" style="border: none; border-radius: 0px; 
+					font-size: 28px;"></span>
+					</div>
+					
+					<div style="margin-left: 15%; margin-top: 13%; width: 25%; border-bottom: 1px solid #3FC38C;
+					text-align: center; float: left; display: inline">
+					<span  th:text="${user.creditCard.ccExperation}" style="border: none; border-radius: 0px; 
+					font-size: 28px;"></span>
+					</div>
+					
+					<div style="margin-left: 20%; width: 25%; border-bottom: 1px solid #3FC38C;  margin-top: 13%;
+					text-align: center; float: left; display: inline">
+					<span  th:text="${user.creditCard.ccCVV}" style="border: none; border-radius: 0px; 
+					font-size: 28px;"></span>
+					</div>
+				</div>
+			</div>
+			<input th:if="${user.creditCard}==null" type="submit" value="Add card" class="verification-button" 
+			style="margin-top: 15px; margin-left: 30px;">
+			</form>
+		</div>
+		<br/>
 	
 	
 </body>

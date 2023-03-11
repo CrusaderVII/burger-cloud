@@ -28,8 +28,17 @@ public interface UserRepository extends
 	
 	public Iterable<Order> getAllById(int userId);
 	
+	public String getAddressById(int userId);
+	
 	@Modifying
 	@Transactional
 	@Query(value = "UPDATE users SET email_is_verified=true WHERE name=:userName", nativeQuery = true)
 	public void emailConfirm(String userName);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "UPDATE users SET address=:address WHERE id=:userId", nativeQuery = true)
+	public void saveAddress(String address, int userId);
+	
+	
 }
